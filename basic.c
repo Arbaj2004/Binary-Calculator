@@ -65,6 +65,7 @@ char *get_expression(){
 
 node *string_list(char *str){
     operands=(char *)malloc(sizeof(char)*10);
+    operands[0]='~';
     node *p=NULL,*t=NULL,*ans=NULL;
     create_queue(&Q,100);
     create_queue(&Q_end,100);
@@ -80,8 +81,8 @@ node *string_list(char *str){
             p=t;
             i++;
         }int decimal=-1;
-        while((str[i]>='0' && str[i]<='9') || str[i]=='.'){
-            
+        int ttemp=0;
+        while((str[i]>='0' && str[i]<='9' && str[i]!='\0') || str[i]=='.'){         
             t=(node *)malloc(sizeof(node));
             t->data=str[i]-'0';
             if(decimal!=-1){
@@ -90,6 +91,7 @@ node *string_list(char *str){
             if(str[i]=='.'){
                 t->data=-1;
                 decimal=0;
+                ttemp=1;
             }
             t->next=NULL;
             t->prev=NULL;
@@ -101,21 +103,30 @@ node *string_list(char *str){
                 p->next=t;
                 p=t;
             }i++;
-        }
-        while(decimal<max_fraction){
+        }int q=0;
+        while(decimal<max_fraction && max_fraction!=0){
             decimal++;
             t=(node *)malloc(sizeof(node));
             t->data=0;
+            if(ttemp==0 && q==0){
+                t->data=-1;
+                q++;
+            }
             t->next=NULL;
             t->prev=NULL;
             t->prev=p;
             p->next=t;
             p=t;
         }
-        operands[operands_count++]=str[i];
-        i++;
+        if(str[i]!='\0'){
+            operands[operands_count++]=str[i];
+            i++;
+        }
+
+        if(ans!=NULL){
         enqueue(&Q,ans);
         enqueue(&Q_end,p);
+        }
     }
     return ans;
 }

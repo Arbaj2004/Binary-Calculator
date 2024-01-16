@@ -30,3 +30,4 @@ node *num_node1=NULL;
 Stack st;
 Queue Q;
 Queue Q_end;
+Queue Q_addition;
