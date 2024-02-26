@@ -34,6 +34,6 @@ int isEmpty_queue( Queue q){
 }
 
 int queue_size(Queue q){
-    return q.size;
+    return q.front-q.rear;
 }
 

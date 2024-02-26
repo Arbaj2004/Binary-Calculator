@@ -8,7 +8,7 @@ void create_stack( Stack *s,int size){
     s->S=( node **)malloc(sizeof( node *)*s->size);
 }
 
-void push( Stack *s, node *p){
+void push_stack( Stack *s, node *p){
     if(s->top==s->size-1){
         printf("stack is full");
     }else{
@@ -17,7 +17,7 @@ void push( Stack *s, node *p){
     }
 }
 
- node *pop( Stack *s){
+ node *pop_stack( Stack *s){
      node *p=NULL;
     if(s->top==0){
         printf("stack is empty");
